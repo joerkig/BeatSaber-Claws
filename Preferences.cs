@@ -14,7 +14,8 @@ namespace Claws
         WMR,              // Windows Mixed Reality
         Knuckles,         // Valve Index
         OculusStoreTouch, // Oculus Rift S, Oculus Quest 1
-        OculusQuest       // Oculus Quest 2
+        OculusQuest,      // Oculus Quest 2
+        MetaQuest         // Meta Quest 3
     }
 
     internal static class Preferences
@@ -38,7 +39,8 @@ namespace Claws
             { VRControllerType.Touch,    new Vector3(-0.03f, -0.0225f, -0.095f ) },
             { VRControllerType.Knuckles, new Vector3(-0.04f, -0.0225f, -0.11f) },
             { VRControllerType.OculusStoreTouch, new Vector3(-0.1f, -0.0225f, -0.06f) },
-            { VRControllerType.OculusQuest, new Vector3(-0.05f, -0.01f, -0.1f) }
+            { VRControllerType.OculusQuest, new Vector3(-0.05f, -0.01f, -0.1f) },
+            { VRControllerType.MetaQuest, new Vector3(-0.03f, -0.0225f, -0.095f) }
         };
         static readonly Dictionary<VRControllerType, Vector3> DefaultRotation = new Dictionary<VRControllerType, Vector3>
         {
@@ -47,7 +49,8 @@ namespace Claws
             { VRControllerType.Touch,    new Vector3(75f, 0f, 90f ) },
             { VRControllerType.Knuckles, new Vector3(75f, 0f, 90f) },
             { VRControllerType.OculusStoreTouch, new Vector3(25f, 0f, 90f) },
-            { VRControllerType.OculusQuest, new Vector3(75f, -5f, 90f) }
+            { VRControllerType.OculusQuest, new Vector3(75f, -5f, 90f) },
+            { VRControllerType.MetaQuest, new Vector3(75f, -5f, 90f) },
         };
 
         public static void Store()
@@ -128,7 +131,12 @@ namespace Claws
                 if (controller.IndexOf(@"Oculus Quest2", StringComparison.InvariantCultureIgnoreCase) >= 0 ||
                     controller.IndexOf(@"Miramar", StringComparison.InvariantCultureIgnoreCase) >= 0)
                     return VRControllerType.OculusQuest;
-
+                /*
+                 * Known Meta Quest 3 controller names:
+                 *   Meta Quest 3
+                 */
+                if (controller.IndexOf(@"Meta Quest 3", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                    return VRControllerType.MetaQuest;
                 /*
                  * Known WMR controller names:
                  *   WindowsMR: 0x045e/0x065b/0/2
